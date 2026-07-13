@@ -2,6 +2,16 @@
 
 **SHPC** allows the installation of software containers in the form of "container modules", for transparent usage of containerised applications, including images already sitting in CVMFS. An automated process generates a system module for an application, hiding the specificities of the Singularity syntax behind shell functions that take the same name as the corresponding executables.
 
+![SHPC and CVMFS](assets/SHPC+CVMFS.png)
+
+This is the pipeline that puts a tool in front of you as a module:
+
+1. **Biocontainers** — tooling registered to Biocontainers, with security checks, isolation, and best practices already applied upstream.
+2. **SingularityHub** (`shpc-registry` & `shpc-gutys`) — automated updating that extracts executables from each container and builds the recipe (the `container.yaml` you patched by hand in [step 7](#7-installing-a-tag-that-isnt-in-the-registry)).
+3. **shpc** — installs and runs those tools on the command line, as an Lmod module.
+
+The same Biocontainers images also flow into **Galaxy**'s CVMFS repository (the top arrow) — which is exactly why the containers you installed with `shpc` in this demo are the same ones already sitting in `/cvmfs/singularity.galaxyproject.org/all/`.
+
 ## 1. Load the module
 
 Go to your home directory and check what's available before loading anything:
@@ -300,5 +310,8 @@ That's the exact ancient container we hand-registered a minute ago, invoked as a
     - **You control exactly what's trusted** — every entry is a tag pinned to a sha256 you computed yourself, not one approved by upstream maintainers
     - **Override or fix a bad/stale upstream recipe** — local registries take priority over upstream, so you can supersede a wrong or outdated entry without forking the whole registry
     - **Faster iteration** — add a version the moment your users need it, rather than waiting on an upstream PR and review
+
+!!! warning
+    Registering an untracked tag as shown in step 7 only copies over the `aliases` from the upstream recipe you seeded from. If that unregistered version actually ships additional binaries the upstream recipe doesn't list — a newer or older build with extra tools bundled in — those commands won't be exposed automatically. You'll need to inspect the container yourself and add the missing entries to the `aliases` section of your local `container.yaml` by hand before `shpc install` will generate wrappers for them.
 
 **Next: [Shelley](shelley.md)**

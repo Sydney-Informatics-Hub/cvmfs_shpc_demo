@@ -39,14 +39,22 @@ cat /etc/cvmfs/default.conf
 Shipped by the `cvmfs` package — global defaults for **all** repositories (cache location/quota, timeouts, retry/backoff, key directory). **Never edit this file directly**; override values in `default.local` instead.
 
 ```conf
-CVMFS_CACHE_BASE=/var/lib/cvmfs
-CVMFS_QUOTA_LIMIT=4000
-CVMFS_SHARED_CACHE=yes
-CVMFS_KEYS_DIR=/etc/cvmfs/keys
-CVMFS_TIMEOUT=5
-CVMFS_TIMEOUT_DIRECT=10
-CVMFS_USE_GEOAPI=no
+CVMFS_CACHE_BASE=/var/lib/cvmfs   # local disk cache directory
+CVMFS_QUOTA_LIMIT=4000            # cache size cap in MB
+CVMFS_SHARED_CACHE=yes            # one shared cache for all repos on this client, not one per repo
+CVMFS_KEYS_DIR=/etc/cvmfs/keys    # directory of public keys
+CVMFS_TIMEOUT=5                   # seconds to wait on a proxied connection before retry/failover
+CVMFS_TIMEOUT_DIRECT=10           # seconds to wait on a direct (non-proxied) connection before retry/failover
+CVMFS_USE_GEOAPI=no               # use GeoIP to pick the nearest Stratum 1 server
 ```
+
+Check how much of `CVMFS_CACHE_BASE` is actually in use — `-s` gives just the total instead of every subdirectory, and `sudo` is needed since the cache is owned by the `cvmfs` service, not your user:
+
+```bash
+sudo du -sh /var/lib/cvmfs/
+```
+
+CVMFS treats `CVMFS_QUOTA_LIMIT` (in MB) as a soft cap on this cache directory — once it's exceeded, the least recently used files are evicted automatically to make room, rather than the client erroring out.
 
 !!! note
     `CVMFS_USE_GEOAPI=no` is the package default — fine generically, but **not what we want for Galaxy**: the galaxyproject.org domain has Stratum 1 replicas spread across the globe (TACC, IU, PSU, JRC in the EU, GVL in Australia). Without GeoAPI, the client just walks the server list in the order it's written rather than picking the closest one. `default.local` overrides this back to `yes`.

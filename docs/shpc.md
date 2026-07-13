@@ -288,9 +288,17 @@ Copyright (C) 2014 Genome Research Ltd.
 
 That's the exact ancient container we hand-registered a minute ago, invoked as an ordinary command, sourced live from CVMFS with nothing downloaded to local disk.
 
-!!! info "Developer note (for SHPC greybeards)"
-    The rest of this page is aimed at users installing and loading existing modules. If you're the one administering shpc itself, see the [developer guide: creating a filesystem registry](https://singularity-hpc.readthedocs.io/en/latest/getting_started/developer-guide.html#creating-a-filesystem-registry):
+!!! info "Developer note"
+    You don't have to rely on the upstream shpc-registry at all — you can maintain your own registry for your users instead, as described in the [developer guide: creating a filesystem registry](https://singularity-hpc.readthedocs.io/en/latest/getting_started/developer-guide.html#creating-a-filesystem-registry):
 
     > A filesystem registry consists of a database of local containers files, which are added to the module system as executables for your user base. This typically means that you are a linux administrator of your cluster, and shpc should be installed for you to use (but your users will not be interacting with it).
+
+    Running your own registry has some real advantages over relying purely on upstream:
+
+    - **Register anything, not just what upstream has gotten to** — CVMFS had 136 samtools builds in this demo, the community registry only tracked ~19
+    - **No dependency on GitHub being reachable** — the upstream registry is fetched from `github.com/singularityhub/shpc-registry`; a local registry works entirely offline
+    - **You control exactly what's trusted** — every entry is a tag pinned to a sha256 you computed yourself, not one approved by upstream maintainers
+    - **Override or fix a bad/stale upstream recipe** — local registries take priority over upstream, so you can supersede a wrong or outdated entry without forking the whole registry
+    - **Faster iteration** — add a version the moment your users need it, rather than waiting on an upstream PR and review
 
 **Next: [Shelley](shelley.md)**

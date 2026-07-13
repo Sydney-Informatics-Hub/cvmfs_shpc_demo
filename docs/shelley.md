@@ -118,3 +118,12 @@ The following have been reloaded with a version change:
 ```
 
 End to end: a container version nobody had registered anywhere, sitting in CVMFS since who-knows-when, built into a real system module and loaded — with one command instead of many.
+
+## Why metadata matters
+
+Shelley started as an attempt to simplify the deeply nested, hard-to-browse Singularity image tree in CVMFS — the same `all/` directory with 120,000+ entries from the [CVMFS page](cvmfs.md#5-explore-the-singularity-repo) — into something researchers can actually search and understand, rather than `ls | grep` their way through.
+
+For tools, that's working: the description panels and metadata `shelley find` renders come from the [Research Software Ecosystem Content](https://github.com/research-software-ecosystem/content) project. For reference data (genomes, annotations, and similar) sitting in CVMFS, there isn't yet a clear equivalent source of metadata — that's still an open problem we're actively looking into.
+
+!!! note
+    Researchers need support finding what they're looking for, not just a mount point. How you structure and expose metadata — both in how a CVMFS repository is organised and in the downstream access tools built on top of it — deserves as much design consideration as the mounting and module-building mechanics covered in this demo.

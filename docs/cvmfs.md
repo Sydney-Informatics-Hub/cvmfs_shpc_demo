@@ -167,6 +167,9 @@ Two standard RSA public keys in PEM format — one per repo (`data.galaxyproject
 
 ### System mount
 
+!!! info "What is autofs?"
+    **autofs** is a Linux automounter — a userspace daemon, backed by the kernel's autofs module, that mounts a filesystem on demand the moment something accesses a path under a configured directory, then unmounts it again after a period of inactivity. This is exactly what made `/cvmfs` come back empty in step 1: nothing gets mounted at boot, only when a path under it is actually touched.
+
 #### `/etc/auto.master.d/cvmfs.autofs`
 
 ```bash
@@ -178,6 +181,9 @@ cat /etc/auto.master.d/cvmfs.autofs
 ```
 
 The autofs map entry that makes `/cvmfs` an automount point in the first place. `/etc/auto.cvmfs` is the CVMFS-provided automount helper — this is the piece that made `ls /cvmfs` come back empty in step 1: nothing is mounted until autofs is asked to resolve a path under it.
+
+!!! note "Is the filename always `cvmfs.autofs`?"
+    No — `cvmfs.autofs` is just the name the CVMFS package happens to ship. The only hard requirement, enforced by autofs itself, is the **`.autofs` suffix**: the `+dir:/etc/auto.master.d` include in `/etc/auto.master` only picks up files ending in `.autofs` from that directory. If you don't see this exact filename on another system, look for whatever `*.autofs` file in `/etc/auto.master.d/` is handling `/cvmfs`.
 
 ## 4. Add the singularity repo back in
 

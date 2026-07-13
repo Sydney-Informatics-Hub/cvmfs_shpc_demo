@@ -125,11 +125,11 @@ End to end: a container version nobody had registered anywhere, sitting in CVMFS
 
 ## Known gaps in the processes
 
-Shelley smooths over three real gaps in the underlying tooling — worth calling out explicitly rather than pretending they're solved.
+Shelley smooths over three real gaps in the underlying tooling. The main takeways being to really think about how you structure what you serve and to capture as much detail to help support downstream users. 
 
 ### Metadata
 
-Shelley started as an attempt to simplify the deeply nested, hard-to-browse Singularity image tree in CVMFS — the same `all/` directory with 120,000+ entries from the [CVMFS page](cvmfs.md#5-explore-the-singularity-repo) — into something researchers can actually search and understand, rather than `ls | grep` their way through.
+Shelley started as an attempt to simplify the deeply nested, hard-to-browse Singularity image tree in CVMFS — the same `all/` directory with 120,000+ entries from the [CVMFS page](cvmfs.md#5-explore-the-singularity-repo) into something researchers can actually search and understand, rather than `ls | grep` their way through.
 
 For tools, that's working: the description panels and metadata `shelley find` renders come from the [Research Software Ecosystem Content](https://github.com/research-software-ecosystem/content) project. For reference data (genomes, annotations, and similar) sitting in CVMFS, there isn't yet a clear equivalent source of metadata — that's still an open problem we're actively looking into.
 

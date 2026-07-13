@@ -91,6 +91,12 @@ aliases:
 
 Every tag is pinned by sha256, and `aliases` lists the binaries inside the container that SHPC will expose as individual commands.
 
+That output is just a rendered view of the recipe's underlying `container.yaml`. Here's the anatomy of one:
+
+![container.yaml recipe template](assets/recipe_template.png)
+
+For the full recipe spec and more advanced options than covered here, see the [SHPC developer guide](https://singularity-hpc.readthedocs.io/en/latest/getting_started/developer-guide.html).
+
 ## 4. Install pointing at the CVMFS copy, not a fresh download
 
 By default `shpc install` pulls the image straight from the registry (`docker://...`). We already have this exact image in CVMFS, so point at it instead:

@@ -1,6 +1,10 @@
 # Shelley
 
-**Shelley** wraps SHPC into a single guided command, so building a module from a CVMFS container is one step instead of many. It automates everything we just did by hand in [SHPC, step 7](shpc.md#7-installing-a-tag-that-isnt-in-the-registry). It's a CVMFS/SHPC-aware CLI (with a TUI mode) that turns *find the container → check the registry → patch a local recipe → install* into a single `shelley build` call.
+**Shelley** ([source](https://github.com/Sydney-Informatics-Hub/shelley)) wraps SHPC into a single guided command, so building a module from a CVMFS container is one step instead of many. It automates everything we just did by hand in [SHPC, step 7](shpc.md#7-installing-a-tag-that-isnt-in-the-registry). It's a CVMFS/SHPC-aware CLI (with a TUI mode) that turns *find the container → check the registry → patch a local recipe → install* into a single `shelley build` call.
+
+![Shelley orchestrator](assets/Shelley_orchestrator.png)
+
+Shelley sits in the middle as an orchestrator between three pieces we've already met — **CVMFS** (the container repository), **shpc** (the module generator), and **LMod** (the module system) — and adds a fourth: structured metadata from the [research-software-ecosystem](https://github.com/research-software-ecosystem/content) project, with descriptions for 34k tools. That last piece is what powers the description panels in `shelley find` below, and is exactly the metadata source referenced in [Why metadata matters](#why-metadata-matters) at the end of this page.
 
 ## 1. Interactive mode
 

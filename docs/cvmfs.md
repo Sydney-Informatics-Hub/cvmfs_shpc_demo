@@ -206,6 +206,9 @@ Probing /cvmfs/singularity.galaxyproject.org... OK
 
 `ls /cvmfs` now shows both repos mounted.
 
+!!! note "How this is actually rolled out"
+    We edited `default.local` by hand here for the demo, but on a real cluster you don't want to hand-edit config on every compute node. **BioShell** itself is built and configured with Ansible — see the [`cvmfs` role](https://github.com/AustralianBioCommons/BioShell/blob/main/build/ansible/roles/cvmfs/tasks/main.yml) for how `CVMFS_REPOSITORIES` and the rest of this config are templated out consistently across every node.
+
 ## 5. Explore the singularity repo
 
 ```bash

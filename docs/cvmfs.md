@@ -28,9 +28,22 @@ This attempts to mount and stat every repository listed in `CVMFS_REPOSITORIES` 
 
 ## 3. The configuration files
 
-CVMFS reads config in layers. Walk through each file in place:
+CVMFS reads config in layers. Before diving into individual files, here's the architecture those layers are configuring:
 
-### `/etc/cvmfs/default.conf`
+![CVMFS architecture](assets/CVMFS_architecture.png)
+
+Each ring in the diagram maps to a config group below:
+
+- **Stratum 0** — the single source repository, where publishers push changes. It's not part of client config at all; everything below is about how a *client* reaches a read-only copy of it.
+- **Stratum 1** (public mirrors) — configured under **domain and repo**, in `CVMFS_SERVER_URL`.
+- **Squid Proxy** (cluster's internal cache/gateway) — configured under **config files (default + global)**, in `CVMFS_HTTP_PROXY`.
+- **Client** (this VM, at the bottom of the diagram) — brought into the picture by **system mount** (autofs) and **config files** (`CVMFS_REPOSITORIES`, cache settings).
+
+Walk through it in the same four logical groups: config files (default + global), domain and repo, security keys, and system mount.
+
+### Config files (default + global)
+
+#### `/etc/cvmfs/default.conf`
 
 ```bash
 cat /etc/cvmfs/default.conf
@@ -59,7 +72,7 @@ CVMFS treats `CVMFS_QUOTA_LIMIT` (in MB) as a soft cap on this cache directory �
 !!! note
     `CVMFS_USE_GEOAPI=no` is the package default — fine generically, but **not what we want for Galaxy**: the galaxyproject.org domain has Stratum 1 replicas spread across the globe (TACC, IU, PSU, JRC in the EU, GVL in Australia). Without GeoAPI, the client just walks the server list in the order it's written rather than picking the closest one. `default.local` overrides this back to `yes`.
 
-### `/etc/cvmfs/default.local`
+#### `/etc/cvmfs/default.local`
 
 ```bash
 cat /etc/cvmfs/default.local
@@ -77,7 +90,9 @@ Site-local overrides layered on top of `default.conf` — this is where **which 
 !!! note
     `CVMFS_HTTP_PROXY='DIRECT'` because this box is on Nectar, which has no Squid proxy set up — every client talks straight to the Stratum 1 servers. Compare with Nirin, which does have Squid proxies available and sets a proxy IP address so its hosts route through those instead of going direct.
 
-### `/etc/cvmfs/domain.d/galaxyproject.org.conf`
+### Domain and repo
+
+#### `/etc/cvmfs/domain.d/galaxyproject.org.conf`
 
 ```bash
 cat /etc/cvmfs/domain.d/galaxyproject.org.conf
@@ -90,7 +105,30 @@ CVMFS_KEYS_DIR="/etc/cvmfs/keys/galaxyproject.org"
 
 Domain-level config — anything ending in `.galaxyproject.org` inherits this: the Stratum 1 replica list and the key directory for signature verification. `@fqrn@` is substituted per-repo, so one config line covers every `*.galaxyproject.org` repo.
 
-### `/etc/cvmfs/keys/galaxyproject.org/`
+Broken out one server per line, this is the full replica list `CVMFS_SERVER_URL` is packing into a single value:
+
+```conf
+CVMFS_SERVER_URL="
+  http://cvmfs1-tacc0.galaxyproject.org/cvmfs/@fqrn@;      # 1. TACC (Texas)
+  http://cvmfs1-iu0.galaxyproject.org/cvmfs/@fqrn@;        # 2. IU (Indiana)
+  http://cvmfs1-psu0.galaxyproject.org/cvmfs/@fqrn@;       # 3. PSU (Pennsylvania)
+  http://galaxy.jrc.ec.europa.eu:8008/cvmfs/@fqrn@;        # 4. Europe (JRC)
+  http://cvmfs1-mel0.gvl.org.au/cvmfs/@fqrn@               # 5. Australia (Melbourne)
+"
+```
+
+Geographic spread:
+
+- 3 in the USA — TACC, IU, PSU
+- 1 in Europe — Joint Research Centre (JRC)
+- 1 in Australia — GVL, Genomics Virtual Lab (Melbourne)
+
+!!! note "Why this matters"
+    CVMFS tries these servers in order and, once GeoAPI is enabled (see the note above), picks the fastest/closest one automatically. In practice: users in the US typically land on TACC/IU/PSU, users in Europe get JRC, and users in Australia get Melbourne — all served from the same single server list.
+
+### Security keys
+
+#### `/etc/cvmfs/keys/galaxyproject.org/`
 
 ```bash
 ls /etc/cvmfs/keys/galaxyproject.org/
@@ -101,12 +139,35 @@ data.galaxyproject.org.pub
 singularity.galaxyproject.org.pub
 ```
 
-Public keys used to verify the cryptographic signature on each repository's root catalog. Both keys are already present — adding the singularity repo back in doesn't require fetching a new key, just telling CVMFS to use it.
+Take a look at the keys themselves:
+
+```bash
+cat /etc/cvmfs/keys/galaxyproject.org/*
+```
+
+```text
+-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5LHQuKWzcX5iBbCGsXGt
+6CRi9+a9cKZG4UlX/lJukEJ+3dSxVDWJs88PSdLk+E25494oU56hB8YeVq+W8AQE
+...
+owIDAQAB
+-----END PUBLIC KEY-----
+-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuJZTWTY3/dBfspFKifv8
+TWuuT2Zzoo1cAskKpKu5gsUAyDFbZfYBEy91qbLPC3TuUm2zdPNsjCQbbq1Liufk
+...
+dQIDAQAB
+-----END PUBLIC KEY-----
+```
+
+Two standard RSA public keys in PEM format — one per repo (`data.galaxyproject.org`, `singularity.galaxyproject.org`), used to verify the cryptographic signature on each repository's root catalog. These are the counterparts to the private keys the repo publishers hold. Both keys are already present — adding the singularity repo back in doesn't require fetching a new key, just telling CVMFS to use it.
 
 !!! info "Security: why plain HTTP is safe here"
     CVMFS doesn't rely on HTTPS for integrity. Every file is content-addressed by its cryptographic hash, and the repository's root catalog is digitally signed with the private key matching the `.pub` file shown above. If a Stratum 1 server ever served tampered or corrupted data, the client would detect the hash/signature mismatch and refuse it — regardless of the transport being plain HTTP. The mount is also strictly **read-only**: not even root can write to `/cvmfs`, so content can only change via the repository's official publishing process, never from the client side.
 
-### `/etc/auto.master.d/cvmfs.autofs`
+### System mount
+
+#### `/etc/auto.master.d/cvmfs.autofs`
 
 ```bash
 cat /etc/auto.master.d/cvmfs.autofs
@@ -192,5 +253,13 @@ samtools:1.9--h91753b0_8
 ```
 
 138 versions of `samtools` alone. Naming convention is `<tool>:<version>--<build>`, matching the Bioconda/Biocontainers tag scheme — the same naming SHPC and Shelley key off of next.
+
+Check the cache again, now that we've browsed both repos:
+
+```bash
+sudo du -sh /var/lib/cvmfs/
+```
+
+Bigger than the [first check](#etccvmfsdefaultconf) — every `ls` and `cat` above touched directory catalogs that CVMFS had to fetch and cache, even though we never downloaded a full container image.
 
 **Next: [SHPC](shpc.md)**

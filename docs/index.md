@@ -8,6 +8,9 @@ A live, follow-along tour of three tools that stack together:
 
 Work through the pages in order — each one builds on the container mounted and module built in the previous page.
 
+!!! note "Introductory slides (internal, USYD staff only)"
+    [Slides](https://unisyd.sharepoint.com/:p:/t/SydneyInformaticsHub2/IQCSfH_qzK3iSLoXlMAUGBbyAYggeHNUwEnAS-mGAfDhe5g?e=ZbJAca) — access is restricted to specific people; if you weren't shared on it directly, this link won't open.
+
 ## Log into your BioShell VM
 
 This demo runs on a **BioShell** VM. Before starting, connect over SSH:

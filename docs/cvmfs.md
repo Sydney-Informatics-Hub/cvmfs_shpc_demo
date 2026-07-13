@@ -39,6 +39,9 @@ Each ring in the diagram maps to a config group below:
 - **Squid Proxy** (cluster's internal cache/gateway) — configured under **config files (default + global)**, in `CVMFS_HTTP_PROXY`.
 - **Client** (this VM, at the bottom of the diagram) — brought into the picture by **system mount** (autofs) and **config files** (`CVMFS_REPOSITORIES`, cache settings).
 
+!!! note "Not covered here: servers and publishing"
+    This demo only covers the **client** side — mounting and reading from repositories that already exist. Setting up Stratum 0/Stratum 1 servers and publishing content into a repository is a separate topic entirely. For that, see the [CVMFS Tutorial 2021](https://cvmfs-contrib.github.io/cvmfs-tutorial-2021/) — a bit old now, but still a solid walkthrough of the server/publishing side.
+
 Walk through it in the same four logical groups: config files (default + global), domain and repo, security keys, and system mount.
 
 ### Config files (default + global)

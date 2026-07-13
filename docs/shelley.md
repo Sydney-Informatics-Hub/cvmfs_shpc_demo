@@ -4,7 +4,7 @@
 
 ![Shelley orchestrator](assets/Shelley_orchestrator.png)
 
-Shelley sits in the middle as an orchestrator between three pieces we've already met — **CVMFS** (the container repository), **shpc** (the module generator), and **LMod** (the module system) — and adds a fourth: structured metadata from the [research-software-ecosystem](https://github.com/research-software-ecosystem/content) project, with descriptions for 34k tools. That last piece is what powers the description panels in `shelley find` below, and is exactly the metadata source referenced in [Why metadata matters](#why-metadata-matters) at the end of this page.
+Shelley sits in the middle as an orchestrator between three pieces we've already met — **CVMFS** (the container repository), **shpc** (the module generator), and **LMod** (the module system) — and adds a fourth: structured metadata from the [research-software-ecosystem](https://github.com/research-software-ecosystem/content) project, with descriptions for 34k tools. That last piece is what powers the description panels in `shelley find` below, and is exactly the metadata source referenced in [Known gaps in the processes](#metadata) at the end of this page.
 
 ## 1. Interactive mode
 
@@ -123,7 +123,11 @@ The following have been reloaded with a version change:
 
 End to end: a container version nobody had registered anywhere, sitting in CVMFS since who-knows-when, built into a real system module and loaded — with one command instead of many.
 
-## Why metadata matters
+## Known gaps in the processes
+
+Shelley smooths over three real gaps in the underlying tooling — worth calling out explicitly rather than pretending they're solved.
+
+### Metadata
 
 Shelley started as an attempt to simplify the deeply nested, hard-to-browse Singularity image tree in CVMFS — the same `all/` directory with 120,000+ entries from the [CVMFS page](cvmfs.md#5-explore-the-singularity-repo) — into something researchers can actually search and understand, rather than `ls | grep` their way through.
 
@@ -131,3 +135,11 @@ For tools, that's working: the description panels and metadata `shelley find` re
 
 !!! note
     Researchers need support finding what they're looking for, not just a mount point. How you structure and expose metadata — both in how a CVMFS repository is organised and in the downstream access tools built on top of it — deserves as much design consideration as the mounting and module-building mechanics covered in this demo.
+
+### shpc: missing registries and a complex multi-step process
+
+The upstream shpc-registry only tracks a fraction of what's actually mounted in CVMFS — in this demo, 19 tracked tags versus 136 CVMFS builds for samtools alone. Registering an untracked tag by hand, as in [SHPC step 7](shpc.md#7-installing-a-tag-that-isnt-in-the-registry), takes five separate steps: seed a local registry directory, `curl` the upstream recipe, register the local registry with shpc, compute a checksum, hand-edit the YAML. `shelley build` collapses all of that into one command, but the underlying gap is still there — shpc itself has no first-class way to register an ad hoc CVMFS container without that multi-step dance; Shelley is a workaround on top, not a fix to shpc.
+
+### Galaxy: a complex, nested filesystem
+
+CVMFS's `singularity.galaxyproject.org/all/` directory holds 122,777+ containers flat, with only a two-level alphabetical symlink index (`s/a/`, `s/b/`, ...) on top — and that index only helps if you already know a tool's first two letters (see [CVMFS step 5](cvmfs.md#5-explore-the-singularity-repo)). Otherwise it's `ls | grep` or nothing; there's no browsable, structured view of what's actually available. Shelley's `find`/`search` commands are a paginated, filterable view over that same flat directory — a workaround for the symptom, not a change to how Galaxy structures the repository itself.

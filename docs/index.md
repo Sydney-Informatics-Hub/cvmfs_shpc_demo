@@ -1,7 +1,5 @@
 # CVMFS → SHPC → Shelley Demo
 
-![BioShell](assets/BioShell_logo_with_name.png)
-
 A live, follow-along tour of three tools that stack together:
 
 - **[CVMFS](cvmfs.md)** mounts a shared, read-only library of scientific software/containers over HTTP — nothing is downloaded until you touch it.
@@ -20,3 +18,7 @@ ssh <username>@<ip_address>
 
 !!! note
     Replace `<username>` and `<ip_address>` with the credentials provided for your BioShell session.
+
+---
+
+[![BioShell](assets/BioShell_logo_with_name.png){ width="200" }](https://sih.tools/bioshell-guide)

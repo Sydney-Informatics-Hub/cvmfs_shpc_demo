@@ -6,6 +6,9 @@
 
 ```bash
 cd /cvmfs
+```
+
+```bash
 ls
 ```
 
@@ -92,6 +95,9 @@ singularity.galaxyproject.org.pub
 
 Public keys used to verify the cryptographic signature on each repository's root catalog. Both keys are already present — adding the singularity repo back in doesn't require fetching a new key, just telling CVMFS to use it.
 
+!!! info "Security: why plain HTTP is safe here"
+    CVMFS doesn't rely on HTTPS for integrity. Every file is content-addressed by its cryptographic hash, and the repository's root catalog is digitally signed with the private key matching the `.pub` file shown above. If a Stratum 1 server ever served tampered or corrupted data, the client would detect the hash/signature mismatch and refuse it — regardless of the transport being plain HTTP. The mount is also strictly **read-only**: not even root can write to `/cvmfs`, so content can only change via the repository's official publishing process, never from the client side.
+
 ### `/etc/auto.master.d/cvmfs.autofs`
 
 ```bash
@@ -108,11 +114,15 @@ The autofs map entry that makes `/cvmfs` an automount point in the first place. 
 
 ```bash
 sudo sed -i 's/CVMFS_REPOSITORIES=data.galaxyproject.org/CVMFS_REPOSITORIES=data.galaxyproject.org,singularity.galaxyproject.org/' /etc/cvmfs/default.local
+```
 
+Check the line was updated correctly:
+
+```bash
 cat /etc/cvmfs/default.local
 ```
 
-If the line was correctly updated we can run:
+If it looks right, re-probe:
 
 ```bash
 cvmfs_config probe

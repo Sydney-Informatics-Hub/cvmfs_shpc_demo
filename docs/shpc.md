@@ -4,14 +4,26 @@
 
 ## 1. Load the module
 
+Go to your home directory and check what's available before loading anything:
+
 ```bash
 cd
 module avail
+```
+
+Load SHPC:
+
+```bash
 module load shpc
+```
+
+Check `module avail` again:
+
+```bash
 module avail
 ```
 
-The second `module avail` shows `singularity` got pulled in too — `shpc` depends on it, so loading `shpc` auto-loads `singularity` as well.
+`singularity` got pulled in too — `shpc` depends on it, so loading `shpc` auto-loads `singularity` as well.
 
 ## 2. Where SHPC gets its registry from
 
@@ -145,23 +157,33 @@ Every alias script is a thin `singularity exec` wrapper, and the image path it r
 
 ## 6. Make the module visible and inspect a wrapper
 
-Once installed, the module is not immediately visible in the tool paths.
+Once installed, the module is not immediately visible in the tool paths:
 
 ```bash
 module avail
 ```
 
-You need to add the module path to Lmod so that it is visible when available modules are inspected:
+Add the module path to Lmod so that it shows up when available modules are inspected:
 
 ```bash
 module use ~/shpc/modules/quay.io/biocontainers
+```
+
+Check again:
+
+```bash
 module avail
 ```
 
-Load the module and check it is the correct version:
+Load the module:
 
 ```bash
 module load samtools/1.23.1--ha83d96e_0/module
+```
+
+Check it's the correct version:
+
+```bash
 samtools --version
 ```
 
@@ -181,17 +203,29 @@ quay.io/biocontainers/samtools:1.0--0 is not a known identifier. Valid tags are:
 1.23.1--ha83d96e_0
 ```
 
-SHPC validates against the tags listed in the recipe's `container.yaml` — it won't take just any path. To install an untracked tag, add a **local registry** with a `container.yaml` that includes it:
+SHPC validates against the tags listed in the recipe's `container.yaml` — it won't take just any path. To install an untracked tag, add a **local registry** with a `container.yaml` that includes it.
+
+Seed a local registry from the upstream recipe, in the same nested layout shpc expects:
 
 ```bash
-# Seed a local registry from the upstream recipe, in the same nested layout shpc expects
 mkdir -p shpc/registry/local/quay.io/biocontainers/samtools
+```
+
+```bash
 curl -fsSL \
   https://raw.githubusercontent.com/singularityhub/shpc-registry/main/quay.io/biocontainers/samtools/container.yaml \
   -o shpc/registry/local/quay.io/biocontainers/samtools/container.yaml
+```
 
-# Register it with shpc — local registry takes priority, upstream stays as fallback
+Register it with shpc — the local registry takes priority, upstream stays as a fallback:
+
+```bash
 shpc config add registry shpc/registry/local/
+```
+
+Check it took effect:
+
+```bash
 shpc config get registry
 ```
 
@@ -253,5 +287,10 @@ Copyright (C) 2014 Genome Research Ltd.
 ```
 
 That's the exact ancient container we hand-registered a minute ago, invoked as an ordinary command, sourced live from CVMFS with nothing downloaded to local disk.
+
+!!! info "Developer note (for SHPC greybeards)"
+    The rest of this page is aimed at users installing and loading existing modules. If you're the one administering shpc itself, see the [developer guide: creating a filesystem registry](https://singularity-hpc.readthedocs.io/en/latest/getting_started/developer-guide.html#creating-a-filesystem-registry):
+
+    > A filesystem registry consists of a database of local containers files, which are added to the module system as executables for your user base. This typically means that you are a linux administrator of your cluster, and shpc should be installed for you to use (but your users will not be interacting with it).
 
 **Next: [Shelley](shelley.md)**

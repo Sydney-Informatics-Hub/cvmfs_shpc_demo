@@ -4,12 +4,10 @@ repo_name: Sydney-Informatics-Hub/template-mkdocs
 
 nav:
   # Landing page
-  - Home: index.md 
-  # Example top-level page
-  #- Setup: setup.md
-  # Example nested page
-  # - Part 1:
-  #   - Introduction: part1/intro.md
+  - Home: index.md
+  - CVMFS: cvmfs.md
+  - SHPC: shpc.md
+  - Shelley: shelley.md
 
 theme:
   name: material

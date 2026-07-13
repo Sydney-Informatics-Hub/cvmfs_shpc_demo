@@ -142,11 +142,11 @@ cat ~/shpc/modules/quay.io/biocontainers/samtools/1.23.1--ha83d96e_0/module.lua
 
 Here are the key parts of this module file:
 
-- Container path (most critical)
-- All tools are exposed as commands
-- Environment variables users can control
-- Wrapper directory location — needs to exist and be readable by all users for global access
-- Conflict declarations — prevents loading multiple versions simultaneously
+- **Container path** — the most critical piece; everything else in the module is built around this
+- **All tools exposed as commands** — every binary in the container becomes a shell function
+- **Environment variables** users can control
+- **Wrapper directory location** — needs to exist and be readable by all users for global access
+- **Conflict declarations** — prevent loading multiple versions simultaneously
 
 ### The wrapper file
 
@@ -298,18 +298,19 @@ Copyright (C) 2014 Genome Research Ltd.
 
 That's the exact ancient container we hand-registered a minute ago, invoked as an ordinary command, sourced live from CVMFS with nothing downloaded to local disk.
 
-!!! info "Developer note"
-    You don't have to rely on the upstream shpc-registry at all — you can maintain your own registry for your users instead, as described in the [developer guide: creating a filesystem registry](https://singularity-hpc.readthedocs.io/en/latest/getting_started/developer-guide.html#creating-a-filesystem-registry):
+## Maintaining your own registry
 
-    > A filesystem registry consists of a database of local containers files, which are added to the module system as executables for your user base. This typically means that you are a linux administrator of your cluster, and shpc should be installed for you to use (but your users will not be interacting with it).
+You don't have to rely on the upstream shpc-registry at all — you can maintain your own registry for your users instead, as described in the [developer guide: creating a filesystem registry](https://singularity-hpc.readthedocs.io/en/latest/getting_started/developer-guide.html#creating-a-filesystem-registry):
 
-    Running your own registry has some real advantages over relying purely on upstream:
+> A filesystem registry consists of a database of local containers files, which are added to the module system as executables for your user base. This typically means that you are a linux administrator of your cluster, and shpc should be installed for you to use (but your users will not be interacting with it).
 
-    - **Register anything, not just what upstream has gotten to** — CVMFS had 136 samtools builds in this demo, the community registry only tracked ~19
-    - **No dependency on GitHub being reachable** — the upstream registry is fetched from `github.com/singularityhub/shpc-registry`; a local registry works entirely offline
-    - **You control exactly what's trusted** — every entry is a tag pinned to a sha256 you computed yourself, not one approved by upstream maintainers
-    - **Override or fix a bad/stale upstream recipe** — local registries take priority over upstream, so you can supersede a wrong or outdated entry without forking the whole registry
-    - **Faster iteration** — add a version the moment your users need it, rather than waiting on an upstream PR and review
+Running your own registry has some real advantages over relying purely on upstream:
+
+- **Register anything, not just what upstream has gotten to** — CVMFS had 136 samtools builds in this demo, the community registry only tracked ~19
+- **No dependency on GitHub being reachable** — the upstream registry is fetched from `github.com/singularityhub/shpc-registry`; a local registry works entirely offline
+- **You control exactly what's trusted** — every entry is a tag pinned to a sha256 you computed yourself, not one approved by upstream maintainers
+- **Override or fix a bad/stale upstream recipe** — local registries take priority over upstream, so you can supersede a wrong or outdated entry without forking the whole registry
+- **Faster iteration** — add a version the moment your users need it, rather than waiting on an upstream PR and review
 
 !!! warning
     Registering an untracked tag as shown in step 7 only copies over the `aliases` from the upstream recipe you seeded from. If that unregistered version actually ships additional binaries the upstream recipe doesn't list — a newer or older build with extra tools bundled in — those commands won't be exposed automatically. You'll need to inspect the container yourself and add the missing entries to the `aliases` section of your local `container.yaml` by hand before `shpc install` will generate wrappers for them.

@@ -207,7 +207,11 @@ samtools --version
 
 ## 7. Installing a tag that isn't in the registry
 
-CVMFS has far more versions mounted than the shpc-registry recipe knows about — `samtools:1.0--0` exists under `/cvmfs/singularity.galaxyproject.org/all/`, but predates the range of tags the registry maintainer added:
+CVMFS has far more versions mounted than the shpc-registry recipe knows about. The build `samtools:1.0--0` exists under `/cvmfs/singularity.galaxyproject.org/all/`, but predates the range of tags the registry maintainer added.
+
+This flowchart captures the steps involved in installing a tag locally.
+
+![](assets/shpc_guts_local_register.svg)
 
 ```bash
 shpc install quay.io/biocontainers/samtools:1.0--0 /cvmfs/singularity.galaxyproject.org/all/samtools:1.0--0 --keep-path

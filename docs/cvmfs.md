@@ -42,6 +42,16 @@ Each ring in the diagram maps to a config group below:
 !!! note "Not covered here: servers and publishing"
     This demo only covers the **client** side — mounting and reading from repositories that already exist. Setting up Stratum 0/Stratum 1 servers and publishing content into a repository is a separate topic entirely. For that, see the [CVMFS Tutorial 2021](https://cvmfs-contrib.github.io/cvmfs-tutorial-2021/) — a bit old now, but still a solid walkthrough of the server/publishing side.
 
+The part that trips people up: these files don't all have the same cardinality. Some are singletons, one is scoped **per domain**, not per repo:
+
+| File | How many exist? | Scope |
+|---|---|---|
+| `/etc/cvmfs/default.conf` | Exactly one | Ships with the `cvmfs` package. Global defaults for every repo this client could ever mount. Never edited directly. |
+| `/etc/cvmfs/default.local` | Exactly one | Site-local overrides for this client only — `CVMFS_REPOSITORIES` lists *every* repo this machine mounts, across every domain, in one place. |
+| `/etc/cvmfs/domain.d/<domain>.conf` | One **per domain**, not per repo | Server list + keys directory for every repo under that domain. Our two repos, `data.galaxyproject.org` and `singularity.galaxyproject.org`, share one domain (`galaxyproject.org`) and the same Stratum 1 servers — so one file covers both. A repo from a genuinely different organisation's CVMFS infrastructure would need its own separate `domain.d/<other-domain>.conf`. |
+
+So the count of `domain.d/*.conf` files tracks the number of distinct **domains** you mount from, not the number of repositories.
+
 Walk through it in the same four logical groups: config files (default + global), domain and repo, security keys, and system mount.
 
 ### Config files (default + global)

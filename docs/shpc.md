@@ -40,7 +40,7 @@ module avail
 ## 2. Where SHPC gets its registry from
 
 ```bash
-cat /opt/shpc/singularity-hpc/shpc/settings.yml
+shpc config get registry
 ```
 
 ```yaml

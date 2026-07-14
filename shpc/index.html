@@ -1,0 +1,1023 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../cvmfs/">
+      
+      
+        <link rel="next" href="../shelley/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>SHPC - CVMFS → SHPC → Shelley Demo</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-TNWWV3HK57"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-TNWWV3HK57",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-TNWWV3HK57",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#shpc-singularity-registry-hpc" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="CVMFS → SHPC → Shelley Demo" class="md-header__button md-logo" aria-label="CVMFS → SHPC → Shelley Demo" data-md-component="logo">
+      
+  <img src="../assets/usyd-logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CVMFS → SHPC → Shelley Demo
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SHPC
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Sydney-Informatics-Hub/cvmfs_shpc_demo" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Sydney-Informatics-Hub/cvmfs_shpc_demo
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="CVMFS → SHPC → Shelley Demo" class="md-nav__button md-logo" aria-label="CVMFS → SHPC → Shelley Demo" data-md-component="logo">
+      
+  <img src="../assets/usyd-logo.png" alt="logo">
+
+    </a>
+    CVMFS → SHPC → Shelley Demo
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Sydney-Informatics-Hub/cvmfs_shpc_demo" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Sydney-Informatics-Hub/cvmfs_shpc_demo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cvmfs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CVMFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SHPC
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SHPC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-load-the-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Load the module
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-where-shpc-gets-its-registry-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Where SHPC gets its registry from
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-search-and-inspect-an-entry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Search and inspect an entry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-install-pointing-at-the-cvmfs-copy-not-a-fresh-download" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Install pointing at the CVMFS copy, not a fresh download
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-what-install-creates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. What install creates
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. What install creates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-module-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The module file
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-wrapper-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The wrapper file
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-make-the-module-visible-and-inspect-a-wrapper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Make the module visible and inspect a wrapper
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-installing-a-tag-that-isnt-in-the-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Installing a tag that isn't in the registry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-load-it-and-use-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Load it and use it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#maintaining-your-own-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maintaining your own registry
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shelley/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shelley
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-load-the-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Load the module
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-where-shpc-gets-its-registry-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Where SHPC gets its registry from
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-search-and-inspect-an-entry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Search and inspect an entry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-install-pointing-at-the-cvmfs-copy-not-a-fresh-download" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Install pointing at the CVMFS copy, not a fresh download
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-what-install-creates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. What install creates
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. What install creates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-module-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The module file
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-wrapper-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The wrapper file
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-make-the-module-visible-and-inspect-a-wrapper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Make the module visible and inspect a wrapper
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-installing-a-tag-that-isnt-in-the-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Installing a tag that isn't in the registry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-load-it-and-use-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Load it and use it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#maintaining-your-own-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maintaining your own registry
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="shpc-singularity-registry-hpc">SHPC (Singularity Registry HPC)</h1>
+<p>Exposing a biocontainer as an Lmod module by hand means writing and maintaining a <code>.lua</code> modulefile for every tool and version — wiring up the <code>singularity exec</code> wrappers, aliases, and <code>$PATH</code> entries yourself, then repeating that for the tens of thousands of images in the Biocontainers catalogue. That doesn't scale. <strong>SHPC</strong> removes the hand-maintenance by generating those modules automatically.</p>
+<p><strong>SHPC</strong> allows the installation of software containers in the form of "container modules", for transparent usage of containerised applications, including images already sitting in CVMFS. An automated process generates a system module for an application, hiding the specificities of the Singularity syntax behind shell functions that take the same name as the corresponding executables.</p>
+<p><img alt="SHPC and CVMFS" src="../assets/SHPC%2BCVMFS.png" /></p>
+<p>This is the pipeline that puts a tool in front of you as a module:</p>
+<ol>
+<li><strong>Biocontainers</strong> — tooling registered to Biocontainers, with security checks, isolation, and best practices already applied upstream.</li>
+<li><strong>SingularityHub</strong> (<code>shpc-registry</code> &amp; <code>shpc-gutys</code>) — automated updating that extracts executables from each container and builds the recipe (the <code>container.yaml</code> you patched by hand in <a href="#7-installing-a-tag-that-isnt-in-the-registry">step 7</a>).</li>
+<li><strong>shpc</strong> — installs and runs those tools on the command line, as an Lmod module.</li>
+</ol>
+<p>The same Biocontainers images also flow into <strong>Galaxy</strong>'s CVMFS repository (the top arrow) — which is exactly why the containers you installed with <code>shpc</code> in this demo are the same ones already sitting in <code>/cvmfs/singularity.galaxyproject.org/all/</code>.</p>
+<h2 id="1-load-the-module">1. Load the module</h2>
+<p>Go to your home directory and check what's available before loading anything:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>module<span class="w"> </span>avail
+</code></pre></div>
+<p>Load SHPC:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>module<span class="w"> </span>load<span class="w"> </span>shpc
+</code></pre></div>
+<p>Check <code>module avail</code> again:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>module<span class="w"> </span>avail
+</code></pre></div>
+<p><code>singularity</code> got pulled in too — <code>shpc</code> depends on it, so loading <code>shpc</code> auto-loads <code>singularity</code> as well.</p>
+<h2 id="2-where-shpc-gets-its-registry-from">2. Where SHPC gets its registry from</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>shpc<span class="w"> </span>config<span class="w"> </span>get<span class="w"> </span>registry
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">registry</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">https</span><span class="p p-Indicator">:</span><span class="nv">//github.com/singularityhub/shpc-registry</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<p>SHPC reads recipe entries (maintainer, description, available tags/aliases) from the community-maintained <code>shpc-registry</code> repo on GitHub. The actual container image still comes from wherever the recipe's <code>docker:</code> field points — <code>quay.io/biocontainers</code> in our case.</p>
+<h2 id="3-search-and-inspect-an-entry">3. Search and inspect an entry</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>shpc<span class="w"> </span>show<span class="w"> </span>-f<span class="w"> </span>samtools
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ghcr.io/autamus/samtools
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>quay.io/biocontainers/bioconductor-rsamtools
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>quay.io/biocontainers/msamtools
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>quay.io/biocontainers/perl-bio-samtools
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>quay.io/biocontainers/samtools
+</code></pre></div>
+<p><code>-f</code> fuzzy-matches on the name, so a few unrelated tools show up alongside the one we want: <code>quay.io/biocontainers/samtools</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>shpc<span class="w"> </span>show<span class="w"> </span>quay.io/biocontainers/samtools
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://biocontainers.pro/tools/samtools</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nt">maintainer</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;@vsoch&#39;</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">shpc-registry automated BioContainers addition for samtools</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="nt">latest</span><span class="p">:</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">  </span><span class="nt">1.23.1--ha83d96e_0</span><span class="p">:</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">sha256:23cda33a3a42125872766df9aaf1d2db67cdb8c85314b793465188435af31ba6</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="nt">tags</span><span class="p">:</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">  </span><span class="nt">1.10--h2e538c0_3</span><span class="p">:</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">sha256:84a8d0c0acec87448a47cefa60c4f4a545887239fcd7984a58b48e7a6ac86390</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">  </span><span class="nt">1.23.1--ha83d96e_0</span><span class="p">:</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">sha256:23cda33a3a42125872766df9aaf1d2db67cdb8c85314b793465188435af31ba6</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="nt">docker</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quay.io/biocontainers/samtools</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="nt">aliases</span><span class="p">:</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="w">  </span><span class="nt">bgzip</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/usr/local/bin/bgzip</span>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="w">  </span><span class="nt">htsfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/usr/local/bin/htsfile</span>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="w">  </span><span class="nt">samtools</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/usr/local/bin/samtools</span>
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="w">  </span><span class="nt">tabix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/usr/local/bin/tabix</span>
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</code></pre></div>
+<p>Every tag is pinned by sha256, and <code>aliases</code> lists the binaries inside the container that SHPC will expose as individual commands.</p>
+<p>That output is just a rendered view of the recipe's underlying <code>container.yaml</code>. Here's the anatomy of one:</p>
+<p><img alt="container.yaml recipe template" src="../assets/recipe_template.png" /></p>
+<p>For the full recipe spec and more advanced options than covered here, see the <a href="https://singularity-hpc.readthedocs.io/en/latest/getting_started/developer-guide.html">SHPC developer guide</a>.</p>
+<h2 id="4-install-pointing-at-the-cvmfs-copy-not-a-fresh-download">4. Install pointing at the CVMFS copy, not a fresh download</h2>
+<p>By default <code>shpc install</code> pulls the image straight from the registry (<code>docker://...</code>). We already have this exact image in CVMFS, so point at it instead:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ls<span class="w"> </span>/cvmfs/singularity.galaxyproject.org/all/samtools*1.23.1--ha83d96e_0
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/cvmfs/singularity.galaxyproject.org/all/samtools:1.23.1--ha83d96e_0
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>shpc<span class="w"> </span>install<span class="w"> </span>quay.io/biocontainers/samtools:1.23.1--ha83d96e_0<span class="w"> </span>/cvmfs/singularity.galaxyproject.org/all/samtools:1.23.1--ha83d96e_0<span class="w"> </span>--keep-path
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>Module quay.io/biocontainers/samtools:1.23.1--ha83d96e_0 was created.
+</code></pre></div>
+<p>The syntax names the tool twice — once as the registry identifier (for metadata/aliases), once as the literal CVMFS path (the actual image) — but this is what lets SHPC build a module against an already-mounted image instead of fetching a new copy.</p>
+<h2 id="5-what-install-creates">5. What <code>install</code> creates</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>tree<span class="w"> </span>~/shpc/
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>shpc/
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>├── modules
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>│   └── quay.io/biocontainers/samtools/1.23.1--ha83d96e_0/module.lua
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>└── wrappers
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>    └── quay.io/biocontainers/samtools/1.23.1--ha83d96e_0/
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>        ├── 99-shpc.sh
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>        └── bin/  (bgzip, htsfile, samtools, samtools-run, samtools-shell, tabix, ...)
+</code></pre></div>
+<p>Two parallel trees, both keyed by <code>&lt;registry&gt;/&lt;org&gt;/&lt;tool&gt;/&lt;version&gt;</code>:</p>
+<ul>
+<li><strong><code>modules/</code></strong> — the Lmod <code>module.lua</code> file that <code>module load</code> reads</li>
+<li><strong><code>wrappers/</code></strong> — one shell script per alias, plus every real binary inside the container — these are what end up on <code>$PATH</code> once the module is loaded</li>
+</ul>
+<h3 id="the-module-file">The module file</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>cat<span class="w"> </span>~/shpc/modules/quay.io/biocontainers/samtools/1.23.1--ha83d96e_0/module.lua
+</code></pre></div>
+<p>Here are the key parts of this module file:</p>
+<ul>
+<li><strong>Container path</strong> — the most critical piece; everything else in the module is built around this</li>
+<li><strong>All tools exposed as commands</strong> — every binary in the container becomes a shell function</li>
+<li><strong>Environment variables</strong> users can control</li>
+<li><strong>Wrapper directory location</strong> — needs to exist and be readable by all users for global access</li>
+<li><strong>Conflict declarations</strong> — prevent loading multiple versions simultaneously</li>
+</ul>
+<h3 id="the-wrapper-file">The wrapper file</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>cat<span class="w"> </span>~/shpc/wrappers/quay.io/biocontainers/samtools/1.23.1--ha83d96e_0/bin/htsfile
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="ch">#!/bin/bash</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="nv">script</span><span class="o">=</span><span class="sb">`</span>realpath<span class="w"> </span><span class="nv">$0</span><span class="sb">`</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="nv">wrapperDir</span><span class="o">=</span><span class="sb">`</span>dirname<span class="w"> </span><span class="nv">$script</span><span class="sb">`</span>/..
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>singularity<span class="w"> </span><span class="si">${</span><span class="nv">SINGULARITY_OPTS</span><span class="si">}</span><span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="si">${</span><span class="nv">SINGULARITY_COMMAND_OPTS</span><span class="si">}</span><span class="w"> </span>-B<span class="w"> </span><span class="nv">$wrapperDir</span>/99-shpc.sh:/.singularity.d/env/99-shpc.sh<span class="w">   </span>/cvmfs/singularity.galaxyproject.org/all/samtools:1.23.1--ha83d96e_0<span class="w"> </span>/usr/local/bin/htsfile<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
+</code></pre></div>
+<p>Every alias script is a thin <code>singularity exec</code> wrapper, and the image path it runs against is the <strong>CVMFS path</strong>, not a locally cached copy. <code>htsfile</code>, <code>samtools</code>, <code>bgzip</code>, etc. all become ordinary commands on <code>$PATH</code> once the module is loaded, running straight out of CVMFS — no image download, no local disk usage for the container itself.</p>
+<h2 id="6-make-the-module-visible-and-inspect-a-wrapper">6. Make the module visible and inspect a wrapper</h2>
+<p>Once installed, the module is not immediately visible in the tool paths:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>module<span class="w"> </span>avail
+</code></pre></div>
+<p>Add the module path to Lmod so that it shows up when available modules are inspected:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>module<span class="w"> </span>use<span class="w"> </span>~/shpc/modules/quay.io/biocontainers
+</code></pre></div>
+<p>Check again:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>module<span class="w"> </span>avail
+</code></pre></div>
+<p>Load the module:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>module<span class="w"> </span>load<span class="w"> </span>samtools/1.23.1--ha83d96e_0/module
+</code></pre></div>
+<p>Check it's the correct version:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>samtools<span class="w"> </span>--version
+</code></pre></div>
+<h2 id="7-installing-a-tag-that-isnt-in-the-registry">7. Installing a tag that isn't in the registry</h2>
+<p>CVMFS has far more versions mounted than the shpc-registry recipe knows about. The build <code>samtools:1.0--0</code> exists under <code>/cvmfs/singularity.galaxyproject.org/all/</code>, but predates the range of tags the registry maintainer added.</p>
+<p>This flowchart captures the steps involved in installing a tag locally.</p>
+<p><img alt="" src="../assets/shpc_guts_local_register.svg" /></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>shpc<span class="w"> </span>install<span class="w"> </span>quay.io/biocontainers/samtools:1.0--0<span class="w"> </span>/cvmfs/singularity.galaxyproject.org/all/samtools:1.0--0<span class="w"> </span>--keep-path
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>quay.io/biocontainers/samtools:1.0--0 is not a known identifier. Valid tags are:
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>1.10--h2e538c0_3
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>1.11--h6270b1f_0
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>...
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>1.23.1--ha83d96e_0
+</code></pre></div>
+<p>SHPC validates against the tags listed in the recipe's <code>container.yaml</code> — it won't take just any path. To install an untracked tag, add a <strong>local registry</strong> with a <code>container.yaml</code> that includes it.</p>
+<p>Seed a local registry from the upstream recipe, in the same nested layout shpc expects:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>shpc/registry/local/quay.io/biocontainers/samtools
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>curl<span class="w"> </span>-fsSL<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="w">  </span>https://raw.githubusercontent.com/singularityhub/shpc-registry/main/quay.io/biocontainers/samtools/container.yaml<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="w">  </span>-o<span class="w"> </span>shpc/registry/local/quay.io/biocontainers/samtools/container.yaml
+</code></pre></div>
+<p>Register it with shpc — the local registry takes priority, upstream stays as a fallback:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>shpc<span class="w"> </span>config<span class="w"> </span>add<span class="w"> </span>registry<span class="w"> </span>shpc/registry/local/
+</code></pre></div>
+<p>Check it took effect:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>shpc<span class="w"> </span>config<span class="w"> </span>get<span class="w"> </span>registry
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>[&#39;shpc/registry/local/&#39;, &#39;https://github.com/singularityhub/shpc-registry&#39;]
+</code></pre></div>
+<p>Get the checksum for the untracked tag and add it to the local recipe:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>sha256sum<span class="w"> </span>/cvmfs/singularity.galaxyproject.org/all/samtools:1.0--0
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>be88ae82e3ba7c650be087fb29bd80505982d092fb69f0913c17892fd7422cb9  /cvmfs/singularity.galaxyproject.org/all/samtools:1.0--0
+</code></pre></div>
+<p>Edit <code>shpc/registry/local/quay.io/biocontainers/samtools/container.yaml</code> and add the new tag under <code>tags:</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="w">  </span><span class="nt">1.0--0</span><span class="p">:</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">sha256:be88ae82e3ba7c650be087fb29bd80505982d092fb69f0913c17892fd7422cb9</span>
+</code></pre></div>
+<p>Install again:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>shpc<span class="w"> </span>install<span class="w"> </span>quay.io/biocontainers/samtools:1.0--0<span class="w"> </span>/cvmfs/singularity.galaxyproject.org/all/samtools:1.0--0<span class="w"> </span>--keep-path
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>Module quay.io/biocontainers/samtools:1.0--0 was created.
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The recipe is really just metadata plus a checksum allowlist — as long as a tag/sha256 is declared somewhere in a registry shpc knows about, it will build a module against any image, including ones the upstream shpc-registry never heard of. This is exactly how you'd onboard a locally-built or CVMFS-only container.</p>
+</div>
+<h2 id="8-load-it-and-use-it">8. Load it and use it</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>module<span class="w"> </span>load<span class="w"> </span>samtools/1.0--0/module
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>The following have been reloaded with a version change:
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>  1) samtools/1.23.1--ha83d96e_0/module =&gt; samtools/1.0--0/module
+</code></pre></div>
+<p>Swaps straight over the module loaded earlier — Lmod handles the version switch, no need to unload first.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>samtools<span class="w"> </span>--version
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>samtools 1.0
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>Using htslib 1.0
+<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>Copyright (C) 2014 Genome Research Ltd.
+</code></pre></div>
+<p>That's the exact ancient container we hand-registered a minute ago, invoked as an ordinary command, sourced live from CVMFS with nothing downloaded to local disk.</p>
+<h2 id="maintaining-your-own-registry">Maintaining your own registry</h2>
+<p>You don't have to rely on the upstream shpc-registry at all — you can maintain your own registry for your users instead, as described in the <a href="https://singularity-hpc.readthedocs.io/en/latest/getting_started/developer-guide.html#creating-a-filesystem-registry">developer guide: creating a filesystem registry</a>:</p>
+<blockquote>
+<p>A filesystem registry consists of a database of local containers files, which are added to the module system as executables for your user base. This typically means that you are a linux administrator of your cluster, and shpc should be installed for you to use (but your users will not be interacting with it).</p>
+</blockquote>
+<p>Running your own registry has some real advantages over relying purely on upstream:</p>
+<ul>
+<li><strong>Register anything, not just what upstream has gotten to</strong> — CVMFS had 136 samtools builds in this demo, the community registry only tracked ~19</li>
+<li><strong>No dependency on GitHub being reachable</strong> — the upstream registry is fetched from <code>github.com/singularityhub/shpc-registry</code>; a local registry works entirely offline</li>
+<li><strong>You control exactly what's trusted</strong> — every entry is a tag pinned to a sha256 you computed yourself, not one approved by upstream maintainers</li>
+<li><strong>Override or fix a bad/stale upstream recipe</strong> — local registries take priority over upstream, so you can supersede a wrong or outdated entry without forking the whole registry</li>
+<li><strong>Faster iteration</strong> — add a version the moment your users need it, rather than waiting on an upstream PR and review</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Registering an untracked tag as shown in step 7 only copies over the <code>aliases</code> from the upstream recipe you seeded from. If that unregistered version actually ships additional binaries the upstream recipe doesn't list — a newer or older build with extra tools bundled in — those commands won't be exposed automatically. You'll need to inspect the container yourself and add the missing entries to the <code>aliases</code> section of your local <code>container.yaml</code> by hand before <code>shpc install</code> will generate wrappers for them.</p>
+</div>
+<p><strong>Next: <a href="../shelley/">Shelley</a></strong></p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../cvmfs/" class="md-footer__link md-footer__link--prev" aria-label="Previous: CVMFS">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                CVMFS
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../shelley/" class="md-footer__link md-footer__link--next" aria-label="Next: Shelley">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Shelley
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.footer", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

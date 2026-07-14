@@ -4,33 +4,38 @@
 
 ![Shelley orchestrator](assets/Shelley_orchestrator.png)
 
-Shelley sits in the middle as an orchestrator between three pieces we've already met — **CVMFS** (the container repository), **shpc** (the module generator), and **LMod** (the module system) — and adds a fourth: structured metadata from the [research-software-ecosystem](https://github.com/research-software-ecosystem/content) project, with descriptions for 34k tools. That last piece is what powers the description panels in `shelley find` below, and is exactly the metadata source referenced in [Known gaps in the processes](#metadata) at the end of this page.
+Shelley sits in the middle as an orchestrator between three pieces we've already met — **CVMFS** (the container repository), **shpc** (the module generator), and **LMod** (the module system) — and adds a fourth: structured metadata from the [research-software-ecosystem](https://github.com/research-software-ecosystem/content) project, with descriptions for 34k tools. That last piece is what powers the description panels in `shelley find` below, and is exactly the metadata source discussed in [the gaps Shelley closes](#the-gaps-shelley-closes) next.
 
-## 1. Interactive mode
+## The gaps Shelley closes
 
-```bash
-shelley interactive
-```
+Everything Shelley automates maps to a real gap in the underlying tooling. Each one requires manual sysadmin work that otherwise has to be repeated by hand for every tool and version. Shelley **minimises that effort**.
 
-Opens a full-screen TUI with its own command grammar:
+- **Metadata:** CVMFS gives you a mount point, not a way to *find* things. Shelley's description panels pull structured metadata from the [Research Software Ecosystem Content](https://github.com/research-software-ecosystem/content) project so researchers can search and understand tools instead of `ls | grep`-ing a 120,000-entry tree ([CVMFS step 5](cvmfs.md#5-explore-the-singularity-repo)). For reference data (genomes, annotations) there's no equivalent metadata source yet.
+- **shpc: missing registries, multi-step registration:** the upstream shpc-registry tracks only a fraction of what's mounted (19 tags vs 136 CVMFS builds for samtools). Registering an untracked tag by hand is a five-step process ([SHPC step 7](shpc.md#7-installing-a-tag-that-isnt-in-the-registry)) that `shelley build` collapses to one command.
+- **Galaxy: a flat, nested filesystem:** `singularity.galaxyproject.org/all/` holds 122,777+ containers flat, with only a two-level alphabetical symlink index that helps only if you already know a tool's first two letters. Shelley's `find`/`search` give a paginated, filterable view over it.
 
-```text
-Available Commands
-Command                Description                                     Example
-find <tool> [-v|-vv]   Find a tool; -v all versions, -vv adds paths    find fastqc
-search <terms>         Search for tools by description                 search quality control
-build <tool[/ver]>     Build an Lmod module for a tool                  build samtools/1.21
-help                   Show this help table                            help
-exit                   Exit interactive mode
-```
+!!! note
+    Researchers need support finding what they're looking for, not just a mount point. How you structure and expose metadata — both in how a CVMFS repository is organised and in the downstream access tools built on top of it — deserves as much design consideration as the mounting and module-building mechanics covered in this demo.
 
-`exit` (or Ctrl-C) drops back to the shell.
-
-## 2. Look up a tool
+## 1. Look up a tool
 
 ```bash
 shelley find samtools
 ```
+
+!!! tip "Interactive mode"
+    Every `shelley` command shown here (`find`, `search`, `build`) also works inside a full-screen TUI, launched with `shelley interactive`. It has its own command grammar:
+
+    ```text
+    Command                Description                                     Example
+    find <tool> [-v|-vv]   Find a tool; -v all versions, -vv adds paths    find fastqc
+    search <terms>         Search for tools by description                 search quality control
+    build <tool[/ver]>     Build an Lmod module for a tool                  build samtools/1.21
+    help                   Show this help table                            help
+    exit                   Exit interactive mode
+    ```
+
+    `exit` (or Ctrl-C) drops back to the shell.
 
 Renders a description panel (homepage, operations, inputs/outputs — pulled from the same shpc-registry metadata), then a version table:
 
@@ -52,7 +57,7 @@ Installed ✓: This version is already available to module load on this system.
 
 Shelley is surfacing exactly the two facts that took a full manual walkthrough to establish with SHPC: whether a version has a registry recipe already, and whether it's already built as a module here. `1.21` shows **Installed ✓** — that's the module we built by hand earlier.
 
-## 3. See every CVMFS build, and where they're located on CVMFS
+## 2. See every CVMFS build, and where they're located on CVMFS
 
 ```bash
 shelley find samtools -vv
@@ -72,7 +77,7 @@ Versions             Buildable  Installed  Container Path
 
 Every row is a build Shelley found by scanning `/cvmfs/singularity.galaxyproject.org/all` directly — the same directory (and the same "too many to browse" problem) from [CVMFS, step 5](cvmfs.md#5-explore-the-singularity-repo) — now with a paged, filterable view instead of raw `ls | grep`.
 
-## 4. Build a version that isn't in the registry — one command
+## 3. Build a version that isn't in the registry — one command
 
 ```bash
 shelley build samtools:1.5--2
@@ -99,7 +104,7 @@ module load samtools/1.5--2
 
 One more difference worth noting: this module lands at `/apps/Modules/modulefiles/samtools/1.5--2.lua` — the **site-wide** Environment Modules tree (same place `R`, `nextflow`, `snakemake`, etc. already live) — not the personal `~/shpc/modules/` tree `shpc install` wrote to with SHPC. Shelley builds modules for the whole system to use, not just the current user.
 
-## 5. Load it
+## 4. Load it
 
 ```bash
 module avail
@@ -121,25 +126,4 @@ The following have been reloaded with a version change:
   1) samtools/1.0--0/module => samtools/1.5--2
 ```
 
-End to end: a container version nobody had registered anywhere, sitting in CVMFS since who-knows-when, built into a real system module and loaded — with one command instead of many.
-
-## Known gaps in the processes
-
-Shelley smooths over three real gaps in the underlying tooling. The main takeways being to really think about how you structure what you serve and to capture as much detail to help support downstream users. 
-
-### Metadata
-
-Shelley started as an attempt to simplify the deeply nested, hard-to-browse Singularity image tree in CVMFS — the same `all/` directory with 120,000+ entries from the [CVMFS page](cvmfs.md#5-explore-the-singularity-repo) into something researchers can actually search and understand, rather than `ls | grep` their way through.
-
-For tools, that's working: the description panels and metadata `shelley find` renders come from the [Research Software Ecosystem Content](https://github.com/research-software-ecosystem/content) project. For reference data (genomes, annotations, and similar) sitting in CVMFS, there isn't yet a clear equivalent source of metadata — that's still an open problem we're actively looking into.
-
-!!! note
-    Researchers need support finding what they're looking for, not just a mount point. How you structure and expose metadata — both in how a CVMFS repository is organised and in the downstream access tools built on top of it — deserves as much design consideration as the mounting and module-building mechanics covered in this demo.
-
-### shpc: missing registries and a complex multi-step process
-
-The upstream shpc-registry only tracks a fraction of what's actually mounted in CVMFS — in this demo, 19 tracked tags versus 136 CVMFS builds for samtools alone. Registering an untracked tag by hand, as in [SHPC step 7](shpc.md#7-installing-a-tag-that-isnt-in-the-registry), takes five separate steps: seed a local registry directory, `curl` the upstream recipe, register the local registry with shpc, compute a checksum, hand-edit the YAML. `shelley build` collapses all of that into one command, but the underlying gap is still there — shpc itself has no first-class way to register an ad hoc CVMFS container without that multi-step dance; Shelley is a workaround on top, not a fix to shpc.
-
-### Galaxy: a complex, nested filesystem
-
-CVMFS's `singularity.galaxyproject.org/all/` directory holds 122,777+ containers flat, with only a two-level alphabetical symlink index (`s/a/`, `s/b/`, ...) on top — and that index only helps if you already know a tool's first two letters (see [CVMFS step 5](cvmfs.md#5-explore-the-singularity-repo)). Otherwise it's `ls | grep` or nothing; there's no browsable, structured view of what's actually available. Shelley's `find`/`search` commands are a paginated, filterable view over that same flat directory — a workaround for the symptom, not a change to how Galaxy structures the repository itself.
+End to end: a container version nobody had registered anywhere, sitting in CVMFS since who-knows-when, built into a real system module and loaded with one command instead of many.

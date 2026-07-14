@@ -1,0 +1,747 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 1120 704.05182"
+   role="img"
+   aria-label="Step 7 under the hood: hand-building a local shpc registry entry — seed the recipe, register it, compute the sha256, edit the container.yaml, and (the hard part) regenerate the aliases from the SIF by diffing against base-OS images, subtracting the conda layer, and never inheriting another version's aliases."
+   version="1.1"
+   id="svg319"
+   sodipodi:docname="step7_validation_gate.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   width="1120"
+   height="704.05182"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview321"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.52764487"
+     inkscape:cx="418.84232"
+     inkscape:cy="-221.74005"
+     inkscape:window-width="2560"
+     inkscape:window-height="1403"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg319" />
+  <defs
+     id="defs153">
+    <filter
+       id="shadow"
+       x="-0.015742574"
+       y="-0.12822581"
+       width="1.0314851"
+       height="1.2887097">
+      <feGaussianBlur
+         in="SourceAlpha"
+         stdDeviation="3"
+         id="feGaussianBlur132" />
+      <feOffset
+         dx="0"
+         dy="2"
+         result="off"
+         id="feOffset134" />
+      <feFlood
+         flood-color="#000000"
+         flood-opacity="0.10"
+         id="feFlood136" />
+      <feComposite
+         in2="off"
+         operator="in"
+         id="feComposite138" />
+      <feMerge
+         id="feMerge144">
+        <feMergeNode
+           id="feMergeNode140" />
+        <feMergeNode
+           in="SourceGraphic"
+           id="feMergeNode142" />
+      </feMerge>
+    </filter>
+    <marker
+       id="arrow"
+       markerWidth="10"
+       markerHeight="10"
+       refX="7"
+       refY="3"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 7,3 0,6 Z"
+         fill="#9e9e9e"
+         id="path147" />
+    </marker>
+    <marker
+       id="arrowRed"
+       markerWidth="10"
+       markerHeight="10"
+       refX="7"
+       refY="3"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 7,3 0,6 Z"
+         fill="#e64626"
+         id="path150" />
+    </marker>
+    <marker
+       id="arrowRed-5"
+       markerWidth="10"
+       markerHeight="10"
+       refX="7"
+       refY="3"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 7,3 0,6 Z"
+         fill="#e64626"
+         id="path150-3" />
+    </marker>
+  </defs>
+  <!-- card background -->
+  <rect
+     x="0.5"
+     y="0.5"
+     width="1119"
+     height="703.05182"
+     rx="14"
+     fill="none"
+     stroke="#e0e0e0"
+     id="rect157" />
+  <!-- header -->
+  <!-- ============ PROBLEM CARD ============ -->
+  <rect
+     x="40"
+     y="24.051796"
+     width="505"
+     height="62"
+     rx="9"
+     fill="#fdecea"
+     stroke="#c62828"
+     filter="url(#shadow)"
+     id="rect163" />
+  <circle
+     cx="70"
+     cy="55.051796"
+     r="14"
+     fill="#c62828"
+     id="circle165" />
+  <path
+     d="m 63,48.051796 14,14 m 0,-14 -14,14"
+     stroke="#ffffff"
+     stroke-width="2.5"
+     stroke-linecap="round"
+     id="path167" />
+  <text
+     x="96"
+     y="50.051796"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="13px"
+     font-weight="700"
+     fill="#2b2b2b"
+     id="text169">Tag isn’t tracked — install refused</text>
+  <text
+     x="96"
+     y="70.051796"
+     font-family="'DejaVu Sans Mono', monospace"
+     font-size="11px"
+     fill="#616161"
+     id="text171">shpc install samtools:1.0--0 → “is not a known identifier”</text>
+  <!-- ============ STEP CARDS ============ -->
+  <!-- step 1: seed -->
+  <line
+     x1="292"
+     y1="86.051796"
+     x2="292"
+     y2="102.0518"
+     stroke="#9e9e9e"
+     stroke-width="1.5"
+     marker-end="url(#arrow)"
+     id="line173" />
+  <rect
+     x="40"
+     y="104.0518"
+     width="505"
+     height="62"
+     rx="9"
+     fill="#ffffff"
+     stroke="#e0e0e0"
+     filter="url(#shadow)"
+     id="rect175" />
+  <circle
+     cx="70"
+     cy="135.05179"
+     r="14"
+     fill="#e64626"
+     id="circle177" />
+  <text
+     x="70"
+     y="140.05179"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="13px"
+     font-weight="700"
+     fill="#ffffff"
+     text-anchor="middle"
+     id="text179">1</text>
+  <text
+     x="96"
+     y="130.05179"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="13px"
+     font-weight="700"
+     fill="#2b2b2b"
+     id="text181">Seed a local registry from the upstream recipe</text>
+  <text
+     x="96"
+     y="150.05179"
+     font-family="'DejaVu Sans Mono', monospace"
+     font-size="11px"
+     fill="#616161"
+     id="text183">mkdir -p local/…/samtools/ · curl container.yaml</text>
+  <rect
+     x="455"
+     y="114.0518"
+     width="76"
+     height="22"
+     rx="11"
+     fill="#fdecea"
+     id="rect185" />
+  <text
+     x="493"
+     y="129.05179"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="10.5px"
+     font-weight="700"
+     fill="#c62828"
+     text-anchor="middle"
+     id="text187">manual</text>
+  <!-- step 2: register -->
+  <line
+     x1="292"
+     y1="166.05179"
+     x2="292"
+     y2="182.05179"
+     stroke="#9e9e9e"
+     stroke-width="1.5"
+     marker-end="url(#arrow)"
+     id="line189" />
+  <rect
+     x="40"
+     y="184.05179"
+     width="505"
+     height="62"
+     rx="9"
+     fill="#ffffff"
+     stroke="#e0e0e0"
+     filter="url(#shadow)"
+     id="rect191" />
+  <circle
+     cx="70"
+     cy="215.05179"
+     r="14"
+     fill="#e64626"
+     id="circle193" />
+  <text
+     x="70"
+     y="220.05179"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="13px"
+     font-weight="700"
+     fill="#ffffff"
+     text-anchor="middle"
+     id="text195">2</text>
+  <text
+     x="96"
+     y="210.05179"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="13px"
+     font-weight="700"
+     fill="#2b2b2b"
+     id="text197">Register it with shpc</text>
+  <text
+     x="96"
+     y="230.05179"
+     font-family="'DejaVu Sans Mono', monospace"
+     font-size="11px"
+     fill="#616161"
+     id="text199">shpc config add registry local/ (priority 1; upstream = fallback)</text>
+  <rect
+     x="455"
+     y="194.05179"
+     width="76"
+     height="22"
+     rx="11"
+     fill="#fdecea"
+     id="rect201" />
+  <text
+     x="493"
+     y="209.05179"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="10.5px"
+     font-weight="700"
+     fill="#c62828"
+     text-anchor="middle"
+     id="text203">manual</text>
+  <!-- step 3: checksum -->
+  <line
+     x1="292"
+     y1="246.05179"
+     x2="292"
+     y2="262.05179"
+     stroke="#9e9e9e"
+     stroke-width="1.5"
+     marker-end="url(#arrow)"
+     id="line205" />
+  <rect
+     x="40"
+     y="264.05179"
+     width="505"
+     height="62"
+     rx="9"
+     fill="#ffffff"
+     stroke="#e0e0e0"
+     filter="url(#shadow)"
+     id="rect207" />
+  <circle
+     cx="70"
+     cy="295.05179"
+     r="14"
+     fill="#e64626"
+     id="circle209" />
+  <text
+     x="70"
+     y="300.05179"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="13px"
+     font-weight="700"
+     fill="#ffffff"
+     text-anchor="middle"
+     id="text211">3</text>
+  <text
+     x="96"
+     y="290.05179"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="13px"
+     font-weight="700"
+     fill="#2b2b2b"
+     id="text213">Compute the image checksum</text>
+  <text
+     x="96"
+     y="310.05179"
+     font-family="'DejaVu Sans Mono', monospace"
+     font-size="11px"
+     fill="#616161"
+     id="text215">sha256sum /cvmfs/…/samtools:1.0--0 → be88ae82…cb9</text>
+  <rect
+     x="455"
+     y="274.05179"
+     width="76"
+     height="22"
+     rx="11"
+     fill="#fdecea"
+     id="rect217" />
+  <text
+     x="493"
+     y="289.05179"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="10.5px"
+     font-weight="700"
+     fill="#c62828"
+     text-anchor="middle"
+     id="text219">manual</text>
+  <!-- step 4: edit yaml -->
+  <line
+     x1="292"
+     y1="326.05179"
+     x2="292"
+     y2="342.05179"
+     stroke="#9e9e9e"
+     stroke-width="1.5"
+     marker-end="url(#arrow)"
+     id="line221" />
+  <rect
+     x="40"
+     y="344.05179"
+     width="505"
+     height="62"
+     rx="9"
+     fill="#ffffff"
+     stroke="#e0e0e0"
+     filter="url(#shadow)"
+     id="rect223" />
+  <circle
+     cx="70"
+     cy="375.05179"
+     r="14"
+     fill="#e64626"
+     id="circle225" />
+  <text
+     x="70"
+     y="380.05179"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="13px"
+     font-weight="700"
+     fill="#ffffff"
+     text-anchor="middle"
+     id="text227">4</text>
+  <text
+     x="96"
+     y="370.05179"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="13px"
+     font-weight="700"
+     fill="#2b2b2b"
+     id="text229">Add the tag + sha256 to the recipe</text>
+  <text
+     x="96"
+     y="390.05179"
+     font-family="'DejaVu Sans Mono', monospace"
+     font-size="11px"
+     fill="#616161"
+     id="text231">edit container.yaml: 1.0--0: {sha256: be88…cb9}</text>
+  <rect
+     x="455"
+     y="354.05179"
+     width="76"
+     height="22"
+     rx="11"
+     fill="#fdecea"
+     id="rect233" />
+  <text
+     x="493"
+     y="369.05179"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="10.5px"
+     font-weight="700"
+     fill="#c62828"
+     text-anchor="middle"
+     id="text235">manual</text>
+  <!-- step 5: aliases (the hard part) -->
+  <line
+     x1="292"
+     y1="406.05179"
+     x2="292"
+     y2="422.05179"
+     stroke="#9e9e9e"
+     stroke-width="1.5"
+     marker-end="url(#arrow)"
+     id="line237" />
+  <rect
+     x="40"
+     y="424.05179"
+     width="505"
+     height="62"
+     rx="9"
+     fill="#fff3f0"
+     stroke="#e64626"
+     stroke-width="1.5"
+     filter="url(#shadow)"
+     id="rect239" />
+  <circle
+     cx="70"
+     cy="455.05179"
+     r="14"
+     fill="#e64626"
+     id="circle241" />
+  <text
+     x="70"
+     y="460.05179"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="13px"
+     font-weight="700"
+     fill="#ffffff"
+     text-anchor="middle"
+     id="text243">5</text>
+  <text
+     x="96"
+     y="450.05179"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="13px"
+     font-weight="700"
+     fill="#2b2b2b"
+     id="text245">Regenerate aliases from THIS SIF</text>
+  <text
+     x="96"
+     y="470.05179"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="11px"
+     fill="#616161"
+     id="text247">the seeded recipe’s aliases describe other builds, see →</text>
+  <rect
+     x="455"
+     y="434.05179"
+     width="76"
+     height="22"
+     rx="11"
+     fill="#c62828"
+     id="rect249" />
+  <text
+     x="492"
+     y="449.05179"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="10.5px"
+     font-weight="700"
+     fill="#ffffff"
+     text-anchor="middle"
+     id="text251">manual</text>
+  <!-- result -->
+  <line
+     x1="292"
+     y1="486.05179"
+     x2="292"
+     y2="502.05179"
+     stroke="#43a047"
+     stroke-width="1.5"
+     marker-end="url(#arrow)"
+     id="line253" />
+  <rect
+     x="40"
+     y="504.05179"
+     width="505"
+     height="62"
+     rx="9"
+     fill="#e8f5e9"
+     stroke="#2e7d32"
+     filter="url(#shadow)"
+     id="rect255" />
+  <circle
+     cx="70"
+     cy="535.05182"
+     r="14"
+     fill="#2e7d32"
+     id="circle257" />
+  <path
+     d="m 63,535.0518 5,6 9,-12"
+     stroke="#ffffff"
+     stroke-width="2.5"
+     fill="none"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     id="path259" />
+  <text
+     x="96"
+     y="530.05182"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="13px"
+     font-weight="700"
+     fill="#2b2b2b"
+     id="text261">Module built against the CVMFS SIF</text>
+  <text
+     x="96"
+     y="550.05182"
+     font-family="'DejaVu Sans Mono', monospace"
+     font-size="11px"
+     fill="#616161"
+     id="text263">module.lua + one wrapper per alias · nothing downloaded</text>
+  <!-- ============ ALIASES DEEP-DIVE PANEL ============ -->
+  <!-- connector from step 5 -->
+  <path
+     d="m 543.92674,458.92871 c 35,0 7.03436,-48.56767 56.86748,-48.51215"
+     fill="none"
+     stroke="#e64626"
+     stroke-width="2"
+     marker-end="url(#arrowRed)"
+     id="path265"
+     sodipodi:nodetypes="cc" />
+  <rect
+     x="600"
+     y="164.05179"
+     width="490"
+     height="402"
+     rx="12"
+     fill="#fcfcfc"
+     stroke="#e64626"
+     filter="url(#shadow)"
+     id="rect267" />
+  <path
+     d="m 612,164.0518 h 466 a 12,12 0 0 1 12,12 v 24 H 600 v -24 a 12,12 0 0 1 12,-12 z"
+     fill="#fff3f0"
+     id="path269" />
+  <text
+     x="620"
+     y="188.05179"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="13px"
+     font-weight="700"
+     fill="#2b2b2b"
+     id="text271">Finding the correct aliases for the SIF</text>
+  <text
+     x="620"
+     y="226.05179"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="11px"
+     fill="#757575"
+     id="text273">The recipe that was curl’d only lists aliases for the builds that theupstream tracked.</text>
+  <text
+     x="620"
+     y="242.05179"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="11px"
+     fill="#757575"
+     id="text275">For an untracked version you must derive them from the SIF itself:</text>
+  <!-- M1 -->
+  <rect
+     x="620"
+     y="256.05179"
+     width="450"
+     height="52"
+     rx="8"
+     fill="#ffffff"
+     stroke="#e0e0e0"
+     id="rect277" />
+  <text
+     x="636"
+     y="278.05179"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="13px"
+     font-weight="700"
+     fill="#2b2b2b"
+     id="text279">1 · Diff the SIF against base-OS images</text>
+  <text
+     x="636"
+     y="297.05179"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="11px"
+     fill="#616161"
+     id="text281">files unique to the container = candidate executables (via shpc-guts)</text>
+  <!-- M2 -->
+  <rect
+     x="620"
+     y="318.05179"
+     width="450"
+     height="72"
+     rx="8"
+     fill="#fdf4f2"
+     stroke="#eebfb6"
+     id="rect283" />
+  <text
+     x="636"
+     y="340.05179"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="13px"
+     font-weight="700"
+     fill="#2b2b2b"
+     id="text287">2 · Subtract the conda layer <tspan
+   fill="#c62828"
+   id="tspan285">⚠</tspan></text>
+  <text
+     x="636"
+     y="359.05179"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="11px"
+     fill="#757575"
+     id="text289">BioContainers bundle a full conda stack; the raw diff returns ~90–100</text>
+  <text
+     x="636"
+     y="375.05179"
+     font-family="'DejaVu Sans Mono', monospace"
+     font-size="10.5px"
+     fill="#c62828"
+     id="text291">non-tool binaries: mamba · pip3 · conda · activate · python …</text>
+  <!-- M3 -->
+  <rect
+     x="620"
+     y="400.05179"
+     width="450"
+     height="90"
+     rx="8"
+     fill="#fdf4f2"
+     stroke="#eebfb6"
+     id="rect293" />
+  <text
+     x="636"
+     y="422.05179"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="13px"
+     font-weight="700"
+     fill="#2b2b2b"
+     id="text297">3 · Never inherit another version’s aliases <tspan
+   fill="#c62828"
+   id="tspan295">⚠</tspan></text>
+  <text
+     x="636"
+     y="441.05179"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="11px"
+     fill="#757575"
+     id="text299">Copying a newer build’s list leaks binaries this image lacks:</text>
+  <text
+     x="636"
+     y="459.05179"
+     font-family="'DejaVu Sans Mono', monospace"
+     font-size="10.5px"
+     fill="#c62828"
+     id="text301">star-fusion 1.0.0 ← 1.10.1 ⇒ exposes `salmon`</text>
+  <text
+     x="636"
+     y="477.05179"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="11px"
+     fill="#757575"
+     id="text303">salmon isn’t in 1.0.0 → command-not-found, or a wrong binary on PATH</text>
+  <!-- result strip -->
+  <rect
+     x="620"
+     y="500.05179"
+     width="450"
+     height="46"
+     rx="8"
+     fill="#e8f5e9"
+     stroke="#2e7d32"
+     id="rect305" />
+  <text
+     x="636"
+     y="520.05182"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="12.5px"
+     font-weight="700"
+     fill="#2e7d32"
+     id="text307">→ only now do the generated wrappers match the real SIF</text>
+  <text
+     x="636"
+     y="537.05182"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="11px"
+     fill="#757575"
+     id="text309">each alias becomes a singularity-exec shell function on $PATH</text>
+  <!-- ============ FOOTER ============ -->
+  <rect
+     x="40"
+     y="592.05182"
+     width="1050"
+     height="82.532494"
+     rx="10"
+     fill="#f7f7f7"
+     stroke="#e0e0e0"
+     id="rect311" />
+  <text
+     x="60"
+     y="622.05182"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="13px"
+     font-weight="700"
+     fill="#2b2b2b"
+     id="text313">Every box is manual and per-version, failures are silent during this process</text>
+  <text
+     x="60"
+     y="643.05182"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="12px"
+     fill="#757575"
+     id="text315">Skip the conda subtraction (2) and the module exposes ~100 junk commands; reuse another build’s aliases (3) and it exposes tools the image</text>
+  <text
+     x="60"
+     y="659.05182"
+     font-family="'DejaVu Sans', sans-serif"
+     font-size="12px"
+     fill="#757575"
+     id="text317">doesn’t contain. Either way it still “installs” cleanly and errors only appear once a command is run.</text>
+</svg>

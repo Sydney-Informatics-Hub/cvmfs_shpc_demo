@@ -1,5 +1,7 @@
 # SHPC (Singularity Registry HPC)
 
+Exposing a biocontainer as an Lmod module by hand means writing and maintaining a `.lua` modulefile for every tool and version — wiring up the `singularity exec` wrappers, aliases, and `$PATH` entries yourself, then repeating that for the tens of thousands of images in the Biocontainers catalogue. That doesn't scale. **SHPC** removes the hand-maintenance by generating those modules automatically.
+
 **SHPC** allows the installation of software containers in the form of "container modules", for transparent usage of containerised applications, including images already sitting in CVMFS. An automated process generates a system module for an application, hiding the specificities of the Singularity syntax behind shell functions that take the same name as the corresponding executables.
 
 ![SHPC and CVMFS](assets/SHPC+CVMFS.png)

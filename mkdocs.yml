@@ -1,6 +1,6 @@
-site_name: template-mkdocs
-repo_url: https://github.com/Sydney-Informatics-Hub/template-mkdocs
-repo_name: Sydney-Informatics-Hub/template-mkdocs
+site_name: CVMFS → SHPC → Shelley Demo
+repo_url: https://github.com/Sydney-Informatics-Hub/cvmfs_shpc_demo
+repo_name: Sydney-Informatics-Hub/cvmfs_shpc_demo
 
 nav:
   # Landing page

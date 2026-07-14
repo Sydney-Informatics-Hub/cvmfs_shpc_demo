@@ -1,6 +1,6 @@
 # CVMFS
 
-**CVMFS** mounts a shared, read-only library of scientific software/containers over HTTP — nothing is downloaded until you touch it.
+**CVMFS** mounts a shared, read-only library of scientific software/containers over HTTP. Nothing is downloaded until you touch it.
 
 ## 1. The mountpoint before anything is mounted
 
@@ -12,7 +12,10 @@ cd /cvmfs
 ls
 ```
 
-Nothing is listed. `/cvmfs` is managed by **autofs** — repositories only appear the moment something tries to access them. An empty `ls /cvmfs` is expected: nothing is "mounted" until it's touched.
+Nothing is listed. `/cvmfs` is managed by **autofs** so repositories only appear the moment something tries to access them. An empty `ls /cvmfs` is expected: nothing is "mounted" until it's touched.
+
+!!! info "What is autofs?"
+    **autofs** is a Linux automounter — a userspace daemon, backed by the kernel's autofs module, that mounts a filesystem on demand the moment something accesses a path under a configured directory, then unmounts it again after a period of inactivity. This is why `/cvmfs` comes back empty: nothing gets mounted at boot, only when a path under it is actually touched.
 
 ## 2. Probe the client
 
@@ -24,7 +27,7 @@ cvmfs_config probe
 Probing /cvmfs/data.galaxyproject.org... OK
 ```
 
-This attempts to mount and stat every repository listed in `CVMFS_REPOSITORIES` (`/etc/cvmfs/default.local`) and reports OK/FAIL per repo. Only `data.galaxyproject.org` is configured right now — the **singularity** repo (`singularity.galaxyproject.org`) has deliberately been left out so we can add it back in live.
+This attempts to mount and stat every repository listed in `CVMFS_REPOSITORIES` (`/etc/cvmfs/default.local`) and reports OK/FAIL per repo. Only `data.galaxyproject.org` is configured right now. The **singularity** repo (`singularity.galaxyproject.org`) has deliberately been left out so we can add it back in live.
 
 ## 3. The configuration files
 
@@ -64,13 +67,13 @@ CVMFS_TIMEOUT_DIRECT=10           # seconds to wait on a direct (non-proxied) co
 CVMFS_USE_GEOAPI=no               # use GeoIP to pick the nearest Stratum 1 server
 ```
 
-Check how much of `CVMFS_CACHE_BASE` is actually in use — `-s` gives just the total instead of every subdirectory, and `sudo` is needed since the cache is owned by the `cvmfs` service, not your user:
+Check how much of `CVMFS_CACHE_BASE` is actually in use. The `-s` flag below gives just the total instead of every subdirectory, and `sudo` is needed since the cache is owned by the `cvmfs` service, not your user:
 
 ```bash
 sudo du -sh /var/lib/cvmfs/
 ```
 
-CVMFS treats `CVMFS_QUOTA_LIMIT` (in MB) as a soft cap on this cache directory — once it's exceeded, the least recently used files are evicted automatically to make room, rather than the client erroring out.
+CVMFS treats `CVMFS_QUOTA_LIMIT` (in MB) as a soft cap on this cache directory. Once it's exceeded, the least recently used files are evicted automatically to make room, rather than the client erroring out.
 
 !!! note
     `CVMFS_USE_GEOAPI=no` is the package default — fine generically, but **not what we want for Galaxy**: the galaxyproject.org domain has Stratum 1 replicas spread across the globe (TACC, IU, PSU, JRC in the EU, GVL in Australia). Without GeoAPI, the client just walks the server list in the order it's written rather than picking the closest one. `default.local` overrides this back to `yes`.
@@ -170,8 +173,7 @@ Two standard RSA public keys in PEM format — one per repo (`data.galaxyproject
 
 ### System mount
 
-!!! info "What is autofs?"
-    **autofs** is a Linux automounter — a userspace daemon, backed by the kernel's autofs module, that mounts a filesystem on demand the moment something accesses a path under a configured directory, then unmounts it again after a period of inactivity. This is exactly what made `/cvmfs` come back empty in step 1: nothing gets mounted at boot, only when a path under it is actually touched.
+`autofs` was used in Step 1 to automatically mount file systems on-demand. Let's explore how it is configured.
 
 #### `/etc/auto.master.d/cvmfs.autofs`
 
